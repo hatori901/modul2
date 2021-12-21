@@ -8,20 +8,27 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @if(Auth::user()->role == "Siswa")
             <div class="flex justify-center items-center">
                 <div class="bg-white shadow-md rounded-md w-full" style="padding: 50px 30px;margin: 0 20px">
+                    <h2 class="text-center text-xl font-bold">Jumlah Hadir</h2>
+                    <h1 class="text-center text-3xl font-bold">{{ $hadir }}</h1>
+                </div>
+                <div class="bg-white shadow-md rounded-md w-full" style="padding: 50px 30px;margin: 0 20px">
                     <h2 class="text-center text-xl font-bold">Jumlah Sakit</h2>
-                    <h1 class="text-center text-3xl font-bold">10</h1>
+                    <h1 class="text-center text-3xl font-bold">{{ $sakit }}</h1>
                 </div>
                 <div class="bg-white shadow-md rounded-md w-full" style="padding: 50px 30px;margin: 0 20px">
                     <h2 class="text-center text-xl font-bold">Jumlah Izin</h2>
-                    <h1 class="text-center text-3xl font-bold">10</h1>
+                    <h1 class="text-center text-3xl font-bold">{{ $izin }}</h1>
                 </div>
                 <div class="bg-white shadow-md rounded-md w-full" style="padding: 50px 30px;margin: 0 20px">
                     <h2 class="text-center text-xl font-bold">Jumlah Tanpa Keterangan</h2>
-                    <h1 class="text-center text-3xl font-bold">10</h1>
+                    <h1 class="text-center text-3xl font-bold">{{ $tanket }}</h1>
                 </div>
+
             </div>
+            @endif
             <div class="flex flex-col mt-12">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 md:-mx-8">
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 md:px-8">
@@ -58,7 +65,7 @@
                                             @if (Auth::user()->role == "Guru")
                                             <a href="{{ route('absen.show',$att->id) }}"><button class="bg-blue-500 px-4 py-2 text-white rounded-md">Lihat</button></a>
                                             @else
-                                            <a href="#"><button class="bg-blue-500 px-4 py-2 text-white rounded-md">Presensi</button></a>
+                                            <a href="{{ route("siswa.absen",$att->id) }}"><button class="bg-blue-500 px-4 py-2 text-white rounded-md">Presensi</button></a>
                                             @endif
                                         </td>
                                     </tr>

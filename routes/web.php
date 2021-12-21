@@ -27,6 +27,12 @@ Route::prefix('/dashboard')->middleware(['auth'])->group(function(){
         Route::get('absen/tambah',[AttendanceController::class,'create'])->name("absen.tambah");
         Route::post('absen/tambah',[AttendanceController::class,'store'])->name('absen.store');
         Route::get('absen/lihat/{id}',[AttendanceController::class,'show'])->name('absen.show');
+        Route::get('absen/{id}/hapus',[AttendanceController::class,'destroy'])->name('absen.delete');
+        Route::get('absen/{id}/export',[AttendanceController::class,'export'])->name('absen.export');
+    });
+    Route::prefix('/siswa')->group(function(){
+        Route::get('/absen/{id}',[AttendanceController::class,'absen'])->name("siswa.absen");
+        Route::post('/absen/{id}',[AttendanceController::class,'update'])->name('siswa.store');
     });
 });
 

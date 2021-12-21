@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AttDetails;
 use App\Models\Attendances;
 use App\Models\Classes;
 use App\Models\Subjects;
@@ -68,10 +69,25 @@ class AttendanceController extends Controller
      */
     public function show($id)
     {
+        if(Auth::user()->role != "Guru"){
+            abort(404,'Not Found');
+        }
         $data['absen'] = Attendances::with(['teacher','subject','kelas'])->where('id',$id)->first();
+        $data['absens'] = AttDetails::with(['absen','student'])->where('attendance_id',$id)->get();
         return view('guru.lihatabsen',$data);
     }
-
+    public function export($id){
+        $data['absen'] = Attendances::with(['teacher','subject','kelas'])->where('id',$id)->first();
+        $data['absens'] = AttDetails::with(['student','absen'])->where('attendance_id',$id)->get();
+        return view('guru.export',$data);
+    }
+    public function absen($id){
+        if(Auth::user()->role != "Siswa"){
+            abort(404,'Not Found');
+        }
+        $data['absen'] = Attendances::with(['teacher','subject','kelas'])->where('id',$id)->first();
+        return view("siswa.absensi",$data);
+    }
     /**
      * Show the form for editing the specified resource.
      *
@@ -92,7 +108,20 @@ class AttendanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = AttDetails::where('id',$id)->where('student_id',Auth::user()->id);
+        if($data->count() > 0){
+            $data->update([
+                'attstatus' => $request->kehadiran
+            ]);
+            return redirect()->route('siswa.absen',$id)->with('success','Berhasil mengubah status kehadiran');
+        }else{
+            AttDetails::create([
+                'attendance_id' => $id,
+                'student_id' => Auth::user()->id,
+                'attstatus' => $request->kehadiran
+            ]);
+            return redirect()->route('siswa.absen',$id)->with('success','Berhasil menyimpan status kehadiran');
+        }
     }
 
     /**
@@ -103,6 +132,9 @@ class AttendanceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Attendances::find($id);
+        $data->delete();
+
+        return redirect()->route('dashboard')->with('success','Berhasil menghapus Presensi');
     }
 }
