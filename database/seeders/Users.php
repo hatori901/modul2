@@ -20,7 +20,7 @@ class Users extends Seeder
             'email' => "siswa@gmail.com",
             'password' => Hash::make("siswa123"),
             'name' => "User Siswa",
-            'role' => "siswa",
+            'role' => "Siswa",
             'class_id' => 1,
             'created_at' => Carbon::now(),
         ]);
@@ -29,7 +29,7 @@ class Users extends Seeder
             'email' => "guru@gmail.com",
             'password' => Hash::make("guru123"),
             'name' => "User Guru",
-            'role' => "guru",
+            'role' => "Guru",
             'class_id' => 1,
             'created_at' => Carbon::now(),
         ]);

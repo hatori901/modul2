@@ -64,6 +64,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium text-gray-900">
                                             @if (Auth::user()->role == "Guru")
                                             <a href="{{ route('absen.show',$att->id) }}"><button class="bg-blue-500 px-4 py-2 text-white rounded-md">Lihat</button></a>
+                                            <a href="{{ route('absen.delete',$att->id) }}"><button class="text-white rounded-md" style="background-color: rgb(255, 137, 137);padding:10px 20px">Hapus</button></a>
                                             @else
                                             <a href="{{ route("siswa.absen",$att->id) }}"><button class="bg-blue-500 px-4 py-2 text-white rounded-md">Presensi</button></a>
                                             @endif

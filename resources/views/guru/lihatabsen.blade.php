@@ -15,7 +15,6 @@
                     <div class="py-2 align-middle inline-block min-w-full sm:px-6 md:px-8">
                         <h2 class="my-5 font-bold text-2xl">{{ __("Daftar Absensi") }}</h2>
                         <a href="{{ route('absen.export',$absen->id) }}"><button class="bg-blue-500 text-white rounded-md" style="padding:10px 20px">Export</button></a>
-                        <a href="{{ route('absen.delete',$absen->id) }}"><button class="text-white rounded-md" style="background-color: rgb(255, 137, 137);padding:10px 20px">Hapus Presensi</button></a>
                         <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                             <table class="min-w-full w-full divide-y divide-gray-200">
                                 <thead class="bg-gray-50">
